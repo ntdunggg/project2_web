@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #f84565;
+  --color-primary-dull: #d63854;
+}
+
+*{
+  font-family: "Outfit", sans-serif;
+  scrollbar-width: thin;
+  scrollbar-color: #787777 #1e1e1e;
+}
+
+body{
+  color: white;
+  background-color: #090808 ;
+}
+
+.hero-fade{
+  animation: heroFade 700ms ease-out;
+}
+
+.hero-content-fade{
+  animation: heroContentFade 700ms ease-out;
+}
+
+.no-scrollbar{
+  scrollbar-width: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button{
+  -webkit-animation: none;
+}
+
+@keyframes heroFade{
+  from{
+    opacity: 0.35;
+    transform: scale(1.03);
+  }
+  to{
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes heroContentFade{
+  from{
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to{
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
