@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import BlurCircle from '../components/BlurCircle'
 import { Heart, PlayCircleIcon } from 'lucide-react'
 import timeFormat from '../lib/timeFormat.js'
 import DateSelect from '../components/DateSelect'
@@ -38,7 +37,6 @@ const MovieDetail = () => {
         />
 
         <div className='relative flex flex-col gap-3'>
-          <BlurCircle top='-100px' left='-100px' />
           <p className='text-primary'>{show.movie.language}</p>
           <h1 className='max-w-96 text-4xl font-semibold text-balance'>
             {show.movie.title}

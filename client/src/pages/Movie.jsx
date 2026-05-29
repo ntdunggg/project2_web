@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import MovieCard from '../components/MovieCard'
 import Loading from '../components/Loading'
 import { service } from '../services'
-import BlurCircle from '../components/BlurCircle'
 
 const Movie = () => {
   const [movies, setMovies] = useState([])
@@ -24,10 +23,6 @@ const Movie = () => {
 
   return movies.length > 0 ? (
     <div className='relative px-6 md:px-16 lg:px-40 pt-30 md:pt-40 min-h-[80vh] overflow-hidden'>
-      <BlurCircle top='100px' left='100px' />
-      <div>
-        <BlurCircle bottom='-50px' right='-60px' />
-      </div>
       <h1 className='my-4 text-lg font-medium'>
         Now Showing
       </h1>

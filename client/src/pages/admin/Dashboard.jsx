@@ -1,7 +1,6 @@
 import { ChartLineIcon, CircleDollarSign, CircleDollarSignIcon, PlayCircleIcon, StarIcon, UserIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import Title from "../../components/admin/Title";
-import BlurCircle from "../../components/BlurCircle";
 import { dateFormat } from "../../lib/dateFormat";
 import { service } from "../../services";
 
@@ -44,7 +43,6 @@ const Dashboard = () => {
             <Title  text1="Admin" text2="Dashboard"/>
 
             <div className="relative flex flex-wrap gap-4 mt-6">
-                <BlurCircle top ='-100px' left="0" />
                 <div className="flex flex-wrap gap-4 w-full">
                     {dashboardCards.map((card,index) => (
                         <div key={index} 
@@ -68,7 +66,6 @@ const Dashboard = () => {
             </p>
 
             <div className="relative flex flex-wrap gap-6 mt-4 max-w-5xl">
-                <BlurCircle top='100px' left="-10px" />
                 {dashboardData.activeShows.map((show)=>(
                     <div key={show._id} 
                     className=" w-55 rounded-lg overflow-hidden h-full pb-3 bg-primary/10 border border-primary/20 hover:-translate-y-1 transition duratio-300"

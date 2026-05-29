@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
-import BlurCircle from '../components/BlurCircle'
 import { useAuth } from '../contexts/useAuth'
 
 const demoAccounts = [
@@ -39,8 +38,6 @@ const Login = () => {
 
   return (
     <div className="relative flex min-h-screen items-center justify-center px-6 py-24 md:px-16">
-      <BlurCircle top="100px" left="120px" />
-      <BlurCircle bottom="120px" right="120px" />
 
       <form
         onSubmit={handleSubmit}

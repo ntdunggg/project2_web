@@ -2,27 +2,17 @@ import React, { useMemo, useState } from 'react'
 import { BanknoteIcon, CheckCircle2Icon, CopyIcon, LandmarkIcon, QrCodeIcon, WalletCardsIcon } from 'lucide-react'
 import toast from 'react-hot-toast'
 
-const buildQrCells = (seed) => {
-  const chars = `${seed}quickshow-payment`
-  return Array.from({ length: 121 }, (_, index) => {
-    const code = chars.charCodeAt(index % chars.length)
-    return ((code + index * 7) % 5) < 2
-  })
-}
-
-const PaymentQr = ({ seed }) => {
-  const cells = useMemo(() => buildQrCells(seed), [seed])
+const PaymentQr = ({ amount, bookingId }) => {
+  const qrUrl = `https://img.vietqr.io/image/VCB-1025776720-compact.png?amount=${amount}&addInfo=${encodeURIComponent(bookingId)}&accountName=QUICKSHOW%20CINEMA`
 
   return (
-    <div className='rounded-2xl border border-white/10 bg-white p-3 shadow-sm'>
-      <div className='grid grid-cols-11 gap-0.5'>
-        {cells.map((cell, index) => (
-          <div
-            key={index}
-            className={`h-3 w-3 rounded-[2px] ${cell ? 'bg-black' : 'bg-white'}`}
-          />
-        ))}
-      </div>
+    <div className='rounded-2xl border border-white/10 bg-white p-3 shadow-sm transition duration-300 hover:scale-105 flex flex-col items-center gap-1.5'>
+      <img
+        src={qrUrl}
+        alt='VietQR Payment'
+        className='h-40 w-40 object-contain rounded-lg'
+      />
+      <span className='text-[9px] font-semibold text-black/60 tracking-wider uppercase'>VietQR - Napas247</span>
     </div>
   )
 }
@@ -41,7 +31,7 @@ const BookingPaymentPanel = ({ booking, onSubmit, submitting }) => {
   }
 
   const copyBankInfo = async () => {
-    const text = `VCB 1020202601 QUICKSHOW ${booking._id}`
+    const text = `VCB 1025776720 QUICKSHOW ${booking._id}`
     await navigator.clipboard.writeText(text)
     toast.success('Bank transfer info copied')
   }
@@ -81,7 +71,7 @@ const BookingPaymentPanel = ({ booking, onSubmit, submitting }) => {
       {method === 'online' ? (
         <div className='mt-5 grid gap-5 rounded-2xl border border-white/10 bg-black/20 p-4 md:grid-cols-[220px,1fr]'>
           <div className='flex items-center justify-center'>
-            <PaymentQr seed={booking._id} />
+            <PaymentQr amount={booking.amount} bookingId={booking._id} />
           </div>
 
           <div>
@@ -94,7 +84,7 @@ const BookingPaymentPanel = ({ booking, onSubmit, submitting }) => {
                 <LandmarkIcon className='h-4 w-4 text-primary' />
                 Vietcombank - QUICKSHOW CINEMA
               </p>
-              <p>Account number: <span className='font-medium text-white'>1020202601</span></p>
+              <p>Account number: <span className='font-medium text-white'>1025776720</span></p>
               <p>Amount: <span className='font-medium text-white'>{import.meta.env.VITE_CURRENCY}{booking.amount}</span></p>
               <p>Transfer note: <span className='font-medium text-white'>{booking._id}</span></p>
             </div>

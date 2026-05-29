@@ -2,12 +2,23 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { assets } from '../assets/assets'
 import { Facebook, Instagram, Github, Twitter } from 'lucide-react'
+import { useAuth } from '../contexts/useAuth'
 
-const footerLinks = [
+const guestLinks = [
   { label: 'Home', to: '/' },
   { label: 'Movies', to: '/movies' },
-  { label: 'Favorites', to: '/favorite' },
+]
+
+const customerLinks = [
+  { label: 'Home', to: '/' },
+  { label: 'Movies', to: '/movies' },
   { label: 'My Bookings', to: '/my-bookings' },
+]
+
+const adminLinks = [
+  { label: 'Home', to: '/' },
+  { label: 'Movies', to: '/movies' },
+  { label: 'Dashboard', to: '/admin' },
 ]
 
 const socialLinks = [
@@ -18,6 +29,14 @@ const socialLinks = [
 ]
 
 const Footer = () => {
+  const { user } = useAuth()
+
+  const footerLinks = user?.role === 'admin'
+    ? adminLinks
+    : user?.role === 'customer'
+      ? customerLinks
+      : guestLinks
+
   return (
     <footer className='mt-20 border-t border-white/10 bg-[#090808] px-6 py-12 text-white/70 md:px-16 lg:px-24 xl:px-44'>
       <div className='flex flex-col gap-10 md:flex-row md:items-start md:justify-between'>

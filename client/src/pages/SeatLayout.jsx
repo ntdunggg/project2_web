@@ -4,7 +4,6 @@ import { assets } from '../assets/assets'
 import Loading from '../components/Loading'
 import { ArrowRightIcon, ClockIcon } from 'lucide-react'
 import isoTimeFormat from '../lib/isoTimeFormat.js'
-import BlurCircle from '../components/BlurCircle.jsx'
 import toast from 'react-hot-toast'
 import { service } from '../services'
 import { useAuth } from '../contexts/useAuth'
@@ -154,8 +153,6 @@ const SeatLayout = () => {
       </div>
 
       <div className='relative flex-1 flex flex-col items-center max-md:mt-16'>
-        <BlurCircle  top='-100px' left='-100px'/>
-        <BlurCircle bottom='0' right='0' />
         <h1 className='text-2xl font-semibold mb-4'>
           Select your seat
         </h1>

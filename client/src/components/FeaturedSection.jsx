@@ -1,7 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import BlurCircle from "./BlurCircle";
 import MovieCard from "./MovieCard";
 import { service } from "../services";
 
@@ -26,7 +25,6 @@ const FeaturedSection = () => {
         </p>
 
         <div className="relative">
-          <BlurCircle top="50%" left="50%" />
           <button
             onClick={() => navigate('/movies')}
             className="group relative z-10 flex items-center gap-2 text-sm text-gray-300 cursor-pointer"

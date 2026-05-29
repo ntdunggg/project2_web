@@ -43,6 +43,22 @@ const ListBookings = () => {
         }
     };
 
+    const handleCancelBooking = async (bookingId) => {
+        if (!window.confirm("Are you sure you want to cancel this booking? This will release the booked seats.")) {
+            return;
+        }
+        try {
+            setUpdatingId(bookingId);
+            await service.cancelBooking(bookingId);
+            setBookings((prev) => prev.filter((item) => item._id !== bookingId));
+            toast.success('Booking cancelled successfully');
+        } catch (error) {
+            toast.error(error.message);
+        } finally {
+            setUpdatingId(null);
+        }
+    };
+
     return !isLoading ? (
         <>
             <Title text1="List" text2='Bookings' />
@@ -90,13 +106,22 @@ const ListBookings = () => {
                                 </td>
                                 <td className="p-2">
                                     {item.paymentStatus === 'awaiting-direct-payment' ? (
-                                        <button
-                                            onClick={() => handleConfirmDirectPayment(item._id)}
-                                            disabled={updatingId === item._id}
-                                            className="rounded-full bg-primary px-3 py-1 text-xs font-medium text-white disabled:cursor-not-allowed disabled:opacity-70"
-                                        >
-                                            {updatingId === item._id ? 'Updating...' : 'Confirm Direct Payment'}
-                                        </button>
+                                        <div className="flex gap-2">
+                                            <button
+                                                onClick={() => handleConfirmDirectPayment(item._id)}
+                                                disabled={updatingId === item._id}
+                                                className="rounded-full bg-primary hover:bg-primary-dull px-3 py-1.5 text-xs font-medium text-white disabled:cursor-not-allowed disabled:opacity-70 cursor-pointer"
+                                            >
+                                                {updatingId === item._id ? 'Updating...' : 'Confirm Pay'}
+                                            </button>
+                                            <button
+                                                onClick={() => handleCancelBooking(item._id)}
+                                                disabled={updatingId === item._id}
+                                                className="rounded-full bg-rose-500 hover:bg-rose-600 px-3 py-1.5 text-xs font-medium text-white disabled:cursor-not-allowed disabled:opacity-70 cursor-pointer"
+                                            >
+                                                {updatingId === item._id ? 'Updating...' : 'Cancel'}
+                                            </button>
+                                        </div>
                                     ) : (
                                         <span className="text-xs text-gray-500">No action</span>
                                     )}

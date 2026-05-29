@@ -687,6 +687,34 @@ export const mockService = {
     return delay(structuredClone(enrichBooking(bookings[bookingIndex], movieMap)))
   },
 
+  async cancelBooking(bookingId) {
+    initializeStore()
+    const bookings = getBookings()
+    const shows = getShows()
+    const bookingIndex = bookings.findIndex((item) => item._id === bookingId)
+
+    if (bookingIndex === -1) {
+      throw new Error('Booking not found')
+    }
+
+    const booking = bookings[bookingIndex]
+    const showIndex = shows.findIndex((item) => item._id === booking.showId)
+
+    if (showIndex !== -1) {
+      const show = shows[showIndex]
+      booking.bookedSeats.forEach((seat) => {
+        delete show.occupiedSeats[seat]
+      })
+      shows[showIndex] = { ...show }
+      saveShows(shows)
+    }
+
+    const nextBookings = bookings.filter((item) => item._id !== bookingId)
+    saveBookings(nextBookings)
+
+    return delay(true)
+  },
+
   async getDashboardStats() {
     initializeStore()
     const users = getUsers()

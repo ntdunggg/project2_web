@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import BlurCircle from '../components/BlurCircle'
 import Loading from '../components/Loading'
 import TicketCard from '../components/TicketCard'
 import { service } from '../services'
@@ -31,8 +30,6 @@ const MyTickets = () => {
 
   return (
     <div className='relative min-h-[80vh] px-6 pt-30 md:px-16 md:pt-40 lg:px-40'>
-      <BlurCircle top='80px' left='120px' />
-      <BlurCircle bottom='40px' right='100px' />
 
       <div className='relative z-10'>
         <p className='text-sm uppercase tracking-[0.3em] text-primary'>Customer</p>

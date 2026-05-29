@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { ChevronLeftIcon, ChevronRight, ChevronRightIcon } from 'lucide-react'
-import BlurCircle from './BlurCircle'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 
@@ -19,8 +18,6 @@ const DateSelect = ({ dateTime, id }) => {
   return (
     <div id='dateSelect' className='pt-30'>
       <div className='relative flex flex-col items-center justify-between gap-10 rounded-lg border border-primary/20 bg-primary/10 p-8 md:flex-row'>
-        <BlurCircle top='-100px' left='-100px' />
-        <BlurCircle top='100px' right='0px' />
 
         <div>
           <p className='text-lg font-semibold'>Choose Date</p>
