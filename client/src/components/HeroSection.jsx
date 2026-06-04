@@ -51,8 +51,8 @@ const HeroSection = () => {
         className='flex min-h-screen flex-col items-start justify-center gap-4 bg-cover bg-center px-4 pt-24 pb-10 sm:px-6 md:px-16 lg:px-36'
         style={{ backgroundImage: `url(${assets.backgroundImage})` }}
       >
-        <h1 className='text-4xl font-semibold'>No active shows</h1>
-        <p className='max-w-lg text-gray-300'>Create a show in admin to populate the homepage hero slider.</p>
+        <h1 className='text-4xl font-semibold'>No Current Show</h1>
+        <p className='max-w-lg text-gray-300'>There are no shows scheduled at the moment. Please check back later.</p>
       </div>
     )
   }

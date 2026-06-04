@@ -42,10 +42,10 @@ const Footer = () => {
       <div className='flex flex-col gap-10 md:flex-row md:items-start md:justify-between'>
         <div className='max-w-md'>
           <Link to='/' onClick={() => scrollTo(0, 0)} className='inline-block'>
-            <img src={assets.logo} alt='QuickShow logo' className='w-32' />
+            <img src={assets.logo} alt='NtdFilm logo' className='w-32' />
           </Link>
           <p className='mt-4 text-sm leading-6 text-white/60'>
-            QuickShow helps you discover movies, watch trailers, and book tickets with a cleaner browsing experience.
+            NtdFilm helps you discover movies, watch trailers, and book tickets with a cleaner browsing experience.
           </p>
         </div>
 
@@ -89,7 +89,7 @@ const Footer = () => {
       </div>
 
       <div className='mt-10 flex flex-col gap-3 border-t border-white/10 pt-6 text-sm text-white/50 md:flex-row md:items-center md:justify-between'>
-        <p>Copyright {new Date().getFullYear()} QuickShow. All rights reserved.</p>
+        <p>Copyright {new Date().getFullYear()} NtdFilm. All rights reserved.</p>
         <p>Built for browsing trailers and booking movie tickets faster.</p>
       </div>
     </footer>

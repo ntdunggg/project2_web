@@ -3,7 +3,7 @@ import { CalendarIcon, CheckCircle2Icon, QrCodeIcon, TicketIcon } from 'lucide-r
 import { dateFormat } from '../lib/dateFormat'
 
 const buildQrCells = (seed) => {
-  const chars = `${seed}quickshow-ticket`
+  const chars = `${seed}ntdfilm-ticket`
   return Array.from({ length: 169 }, (_, index) => {
     const code = chars.charCodeAt(index % chars.length)
     return ((code * 3 + index * 11) % 7) < 3
@@ -39,7 +39,7 @@ const TicketCard = ({ booking }) => {
         <div className='flex-1'>
           <div className='flex flex-wrap items-start justify-between gap-3'>
             <div>
-              <p className='text-xs uppercase tracking-[0.25em] text-primary'>QuickShow Ticket</p>
+              <p className='text-xs uppercase tracking-[0.25em] text-primary'>NtdFilm Ticket</p>
               <h2 className='mt-2 text-2xl font-semibold'>{booking.show.movie.title}</h2>
             </div>
             <div className='rounded-full bg-emerald-500/15 px-3 py-1 text-xs uppercase tracking-[0.2em] text-emerald-300'>

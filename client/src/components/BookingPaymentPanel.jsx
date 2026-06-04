@@ -3,7 +3,7 @@ import { BanknoteIcon, CheckCircle2Icon, CopyIcon, LandmarkIcon, QrCodeIcon, Wal
 import toast from 'react-hot-toast'
 
 const PaymentQr = ({ amount, bookingId }) => {
-  const qrUrl = `https://img.vietqr.io/image/VCB-1025776720-compact.png?amount=${amount}&addInfo=${encodeURIComponent(bookingId)}&accountName=QUICKSHOW%20CINEMA`
+  const qrUrl = `https://img.vietqr.io/image/VCB-1025776720-compact.png?amount=${amount}&addInfo=${encodeURIComponent(bookingId)}&accountName=NTDFILM%20CINEMA`
 
   return (
     <div className='rounded-2xl border border-white/10 bg-white p-3 shadow-sm transition duration-300 hover:scale-105 flex flex-col items-center gap-1.5'>
@@ -31,7 +31,7 @@ const BookingPaymentPanel = ({ booking, onSubmit, submitting }) => {
   }
 
   const copyBankInfo = async () => {
-    const text = `VCB 1025776720 QUICKSHOW ${booking._id}`
+    const text = `VCB 1025776720 NTDFILM ${booking._id}`
     await navigator.clipboard.writeText(text)
     toast.success('Bank transfer info copied')
   }
@@ -82,7 +82,7 @@ const BookingPaymentPanel = ({ booking, onSubmit, submitting }) => {
             <div className='mt-4 space-y-3 text-sm text-gray-300'>
               <p className='flex items-center gap-2'>
                 <LandmarkIcon className='h-4 w-4 text-primary' />
-                Vietcombank - QUICKSHOW CINEMA
+                Vietcombank - NTDFILM CINEMA
               </p>
               <p>Account number: <span className='font-medium text-white'>1025776720</span></p>
               <p>Amount: <span className='font-medium text-white'>{import.meta.env.VITE_CURRENCY}{booking.amount}</span></p>

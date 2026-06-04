@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { service } from '../services'
 import { AuthContext } from './auth-context'
-const CURRENT_USER_KEY = 'quickshow_current_user'
+const CURRENT_USER_KEY = 'ntdfilm_current_user'
 
 const getStoredUser = () => {
   service.initialize()

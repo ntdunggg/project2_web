@@ -43,7 +43,7 @@ const Login = () => {
         onSubmit={handleSubmit}
         className="relative z-10 w-full max-w-xl rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur"
       >
-        <p className="text-sm uppercase tracking-[0.3em] text-primary">QuickShow Mock Auth</p>
+        <p className="text-sm uppercase tracking-[0.3em] text-primary">NtdFilm Mock Auth</p>
         <h1 className="mt-3 text-3xl font-semibold">Login with demo accounts</h1>
         <p className="mt-3 text-sm text-gray-400">
           Customer can book tickets. Admin can manage shows and bookings.

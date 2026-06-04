@@ -1,4 +1,4 @@
-const DB_NAME = 'quickshow-media-db'
+const DB_NAME = 'ntdfilm-media-db'
 const DB_VERSION = 1
 const STORE_NAME = 'images'
 

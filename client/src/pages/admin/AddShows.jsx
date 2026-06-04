@@ -71,6 +71,10 @@ const AddShows = () => {
                 throw new Error("Please select the show date and time");
             }
 
+            if (new Date(showDateTime) < new Date()) {
+                throw new Error("Cannot create a show in the past");
+            }
+
             const [date, time] = showDateTime.split("T");
             await service.createShow({
                 movieId: mode === "existing" ? selectedMovie : null,
@@ -258,6 +262,7 @@ const AddShows = () => {
                             <input
                                 type="datetime-local"
                                 value={showDateTime}
+                                min={new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16)}
                                 onChange={(event) => setShowDateTime(event.target.value)}
                                 className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 outline-none"
                             />

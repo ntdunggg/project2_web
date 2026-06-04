@@ -2,10 +2,10 @@ import { dummyShowsData } from '../assets/assets'
 import { getImageFromIndexedDb, isIndexedDbImageRef, saveImageToIndexedDb } from './imageStorage'
 
 const STORAGE_KEYS = {
-  users: 'quickshow_mock_users',
-  movies: 'quickshow_mock_movies',
-  shows: 'quickshow_mock_shows',
-  bookings: 'quickshow_mock_bookings',
+  users: 'ntdfilm_mock_users',
+  movies: 'ntdfilm_mock_movies',
+  shows: 'ntdfilm_mock_shows',
+  bookings: 'ntdfilm_mock_bookings',
 }
 
 const DEFAULT_USERS = [
@@ -128,42 +128,9 @@ const writeStorage = (key, value) => {
   localStorage.setItem(key, JSON.stringify(value))
 }
 
-const ensureWednesdayShow = (shows) => {
-  const hasWednesdayShows = shows.some((show) => show.showDateTime.startsWith('2025-07-23'))
-  if (hasWednesdayShows) {
-    return shows
-  }
-
-  return [
-    {
-      _id: buildShowId(dummyShowsData[0]._id, '2025-07-23', 0),
-      movieId: dummyShowsData[0]._id,
-      showDateTime: '2025-07-23T03:00:00.000Z',
-      showPrice: 45,
-      occupiedSeats: {},
-    },
-    ...shows,
-  ]
-}
-
-const enforceSingleShowPerDay = (shows) => {
-  const seenDates = new Set()
-
-  return shows
-    .slice()
-    .sort((a, b) => new Date(a.showDateTime) - new Date(b.showDateTime))
-    .filter((show) => {
-      const showDate = show.showDateTime.slice(0, 10)
-      if (seenDates.has(showDate)) {
-        return false
-      }
-
-      seenDates.add(showDate)
-      return true
-    })
-}
-
-const normalizeShows = (shows) => enforceSingleShowPerDay(ensureWednesdayShow(shows))
+const normalizeShows = (shows) => shows
+  .slice()
+  .sort((a, b) => new Date(a.showDateTime) - new Date(b.showDateTime))
 
 const normalizeBookings = (bookings, shows) => bookings.map((booking) => {
   const show = shows.find((item) => item._id === booking.showId)
@@ -188,6 +155,17 @@ const normalizeBookings = (bookings, shows) => bookings.map((booking) => {
 const getStoredShows = () => normalizeShows(readStorage(STORAGE_KEYS.shows, DEFAULT_SHOWS))
 const getStoredBookings = () => normalizeBookings(readStorage(STORAGE_KEYS.bookings, DEFAULT_BOOKINGS), getStoredShows())
 
+const isPastShow = (show) => new Date(show.showDateTime) < new Date()
+
+const removePastShows = (shows, bookings) => {
+  const pastShowIds = new Set(shows.filter(isPastShow).map((show) => show._id))
+  if (pastShowIds.size === 0) return { shows, bookings }
+  return {
+    shows: shows.filter((show) => !pastShowIds.has(show._id)),
+    bookings: bookings.filter((booking) => !pastShowIds.has(booking.showId)),
+  }
+}
+
 const initializeStore = () => {
   if (!localStorage.getItem(STORAGE_KEYS.users)) {
     writeStorage(STORAGE_KEYS.users, DEFAULT_USERS)
@@ -197,17 +175,17 @@ const initializeStore = () => {
     writeStorage(STORAGE_KEYS.movies, DEFAULT_MOVIES)
   }
 
-  if (!localStorage.getItem(STORAGE_KEYS.shows)) {
-    writeStorage(STORAGE_KEYS.shows, DEFAULT_SHOWS)
-  } else {
-    writeStorage(STORAGE_KEYS.shows, getStoredShows())
-  }
+  let shows = localStorage.getItem(STORAGE_KEYS.shows)
+    ? getStoredShows()
+    : DEFAULT_SHOWS
 
-  if (!localStorage.getItem(STORAGE_KEYS.bookings)) {
-    writeStorage(STORAGE_KEYS.bookings, DEFAULT_BOOKINGS)
-  } else {
-    writeStorage(STORAGE_KEYS.bookings, getStoredBookings())
-  }
+  let bookings = localStorage.getItem(STORAGE_KEYS.bookings)
+    ? readStorage(STORAGE_KEYS.bookings, DEFAULT_BOOKINGS)
+    : DEFAULT_BOOKINGS
+
+  const cleaned = removePastShows(shows, bookings)
+  writeStorage(STORAGE_KEYS.shows, cleaned.shows)
+  writeStorage(STORAGE_KEYS.bookings, cleaned.bookings)
 }
 
 const getUsers = () => readStorage(STORAGE_KEYS.users, DEFAULT_USERS)
@@ -425,6 +403,13 @@ export const mockService = {
     }
 
     const selectedDate = selectedDates[0]
+
+    // Chặn tạo show trong quá khứ
+    const selectedDateTime = new Date(`${selectedDate}T${Object.values(dateTimeSelection)[0][0]}`)
+    if (selectedDateTime < new Date()) {
+      throw new Error('Cannot create a show in the past')
+    }
+
     if (hasShowOnDate(shows, selectedDate)) {
       throw new Error('Only one show is allowed per day in this cinema')
     }

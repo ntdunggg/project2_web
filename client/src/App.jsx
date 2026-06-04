@@ -6,8 +6,6 @@ import Movie from './pages/Movie'
 import MovieDetail from './pages/MovieDetail'
 import SeatLayout from './pages/SeatLayout'
 import MyBooking from './pages/MyBooking'
-import MyTickets from './pages/MyTickets'
-import Fav from './pages/Fav'
 import Layout from './pages/admin/Layout'
 import Dashboard from './pages/admin/Dashboard'
 import AddShows from './pages/admin/AddShows'
@@ -46,15 +44,6 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        <Route
-          path='/my-tickets'
-          element={
-            <ProtectedRoute allowedRoles={['customer']}>
-              <MyTickets/>
-            </ProtectedRoute>
-          }
-        />
-        <Route path='/favorite' element={<Fav/>} />
         <Route
           path='/admin/*'
           element={
