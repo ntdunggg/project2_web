@@ -90,7 +90,7 @@ const ListBookings = () => {
                                     {dateFormat(item.show.showDateTime)}
                                 </td>
                                 <td className="p-2">
-                                    {Object.keys(item.bookedSeats).map(seat=> item.bookedSeats[seat]).join(", ")}
+                                    {item.bookedSeats.join(", ")}
                                 </td>
                                 <td className="p-2">
                                     {currency} {item.amount}
@@ -122,6 +122,14 @@ const ListBookings = () => {
                                                 {updatingId === item._id ? 'Updating...' : 'Cancel'}
                                             </button>
                                         </div>
+                                    ) : item.paymentStatus === 'paid' && item.paymentMethod === 'online' ? (
+                                        <button
+                                            onClick={() => handleCancelBooking(item._id)}
+                                            disabled={updatingId === item._id}
+                                            className="rounded-full bg-rose-500 hover:bg-rose-600 px-3 py-1.5 text-xs font-medium text-white disabled:cursor-not-allowed disabled:opacity-70 cursor-pointer"
+                                        >
+                                            {updatingId === item._id ? 'Cancelling...' : 'Cancel'}
+                                        </button>
                                     ) : (
                                         <span className="text-xs text-gray-500">No action</span>
                                     )}

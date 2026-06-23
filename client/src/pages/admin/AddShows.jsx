@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { CalendarDaysIcon, FilmIcon, ImageIcon, PlusIcon, StarIcon, TicketIcon, UploadIcon } from "lucide-react";
+import { CalendarDaysIcon, FilmIcon, ImageIcon, PlusIcon, TicketIcon, UploadIcon } from "lucide-react";
 import toast from "react-hot-toast";
 import Loading from "../../components/Loading";
 import Title from "../../components/admin/Title";

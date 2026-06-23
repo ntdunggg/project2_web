@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ChevronLeftIcon, ChevronRight, ChevronRightIcon } from 'lucide-react'
+import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 

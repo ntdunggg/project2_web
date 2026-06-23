@@ -1,4 +1,4 @@
-import { ChartLineIcon, CircleDollarSign, CircleDollarSignIcon, PlayCircleIcon, StarIcon, UserIcon } from "lucide-react";
+import { ChartLineIcon, CircleDollarSign, CircleDollarSignIcon, PlayCircleIcon, UserIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import Title from "../../components/admin/Title";
 import { dateFormat } from "../../lib/dateFormat";
