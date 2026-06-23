@@ -1,17 +1,96 @@
-# QuickShow — Frontend Client
+# 🎬 NtdFilm — Movie Ticket Booking App
 
-React + Vite frontend for the QuickShow movie ticket booking application.
+A modern movie ticket booking web application built with **React + Vite** and **TailwindCSS v4**. NtdFilm lets users browse movies, select seats, book tickets, and manage their reservations — all in a sleek, responsive UI.
 
-## Tech Stack
+---
 
-- **React 19** + **Vite 7**
-- **TailwindCSS v4**
-- **React Router v7**
-- **Clerk** (Authentication)
+## ✨ Features
 
-## Getting Started
+### 👥 Customer
+- 🏠 **Home** — Browse currently showing movies in a hero slider
+- 🎞️ **Movies** — Explore all available movies
+- 🎟️ **Seat Selection** — Interactive seat layout for booking
+- 📋 **My Bookings** — View and manage your bookings
+- 💳 **Payment** — Pay via VietQR (online) or leave contact info for direct payment
+
+### 🛠️ Admin
+- 📊 **Dashboard** — Overview of revenue, bookings, and upcoming shows
+- ➕ **Add Shows** — Schedule new movie screenings (cannot schedule in the past)
+- 📋 **List Shows** — View and delete scheduled shows
+- 📦 **List Bookings** — View all customer bookings and confirm direct payments
+
+---
+
+## 🛠️ Tech Stack
+
+| Technology | Version | Purpose |
+|---|---|---|
+| [React](https://react.dev/) | 19 | UI Framework |
+| [Vite](https://vite.dev/) | 7 | Build Tool & Dev Server |
+| [TailwindCSS](https://tailwindcss.com/) | v4 | Styling |
+| [React Router](https://reactrouter.com/) | v7 | Client-side Routing |
+| [Lucide React](https://lucide.dev/) | latest | Icons |
+| [React Hot Toast](https://react-hot-toast.com/) | latest | Notifications |
+
+---
+
+## 🔐 Authentication
+
+Two built-in demo accounts:
+
+| Role | Email | Password |
+|---|---|---|
+| Customer | `customer@test.com` | `password` |
+| Admin | `admin@test.com` | `password` |
+
+Session is persisted in `localStorage` under the key `ntdfilm_current_user`.
+
+---
+
+## 💾 Data Storage
+
+All data is stored client-side — no backend needed:
+
+| Data | Storage |
+|---|---|
+| Users, Shows, Bookings | `localStorage` (keys prefixed with `ntdfilm_`) |
+| Movie poster / backdrop images | `IndexedDB` (`ntdfilm-media-db`) |
+
+Past shows are **automatically purged** on app load. Admin cannot create shows with a past date/time.
+
+---
+
+## 📁 Project Structure
+
+```
+quickshow/
+└── client/               # Frontend React application
+    ├── index.html
+    └── src/
+        ├── assets/       # Logo, images, mock data
+        ├── components/   # Reusable UI components
+        │   └── admin/    # Admin-specific components
+        ├── contexts/     # React Context (Auth)
+        ├── lib/          # Utility functions (date, time formatting)
+        ├── pages/        # Page-level components
+        │   └── admin/    # Admin pages
+        └── services/     # Mock data service & IndexedDB storage
+```
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- [Node.js](https://nodejs.org/) v18+
+- npm
+
+### Installation & Run
 
 ```bash
+# Navigate to the client directory
+cd client
+
 # Install dependencies
 npm install
 
@@ -19,23 +98,35 @@ npm install
 npm run dev
 ```
 
-App runs at `http://localhost:5173`
+The app will be running at `http://localhost:5173`
 
-## Environment Variables
+### Build for Production
 
-Create a `.env` file:
-
-```env
-VITE_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+```bash
+cd client
+npm run build
 ```
 
-## Scripts
+---
 
-| Script | Description |
-|--------|-------------|
-| `npm run dev` | Start dev server |
-| `npm run build` | Build for production |
-| `npm run preview` | Preview production build |
-| `npm run lint` | Run ESLint |
+## 🔑 Environment Variables
 
-> See the [root README](../README.md) for full project documentation.
+Create a `.env` file inside the `client/` directory:
+
+```env
+# Currency symbol displayed throughout the app
+VITE_CURRENCY=₫
+```
+
+---
+
+## 📜 Available Scripts
+
+| Script | Command | Description |
+|--------|---------|-------------|
+| Dev Server | `npm run dev` | Start local development server |
+| Build | `npm run build` | Build for production |
+| Preview | `npm run preview` | Preview production build |
+| Lint | `npm run lint` | Run ESLint |
+
+---
